@@ -1,4 +1,3 @@
-# coding: utf-8
 playing_field = list(range(1,10))
 def markup_playing_field(playing_field):
     print ("…" * 13)
