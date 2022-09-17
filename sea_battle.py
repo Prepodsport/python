@@ -1,4 +1,5 @@
 from random import randint
+
 class Dot:
     def __init__(self, x, y):
         self.x = x
@@ -7,16 +8,21 @@ class Dot:
         return self.x == other.x and self.y == other.y
     def __repr__(self):
         return f"({self.x}, {self.y})"
+    
 class BoardException(Exception):
     pass
+
 class BoardOutException(BoardException):
     def __str__(self):
         return "Ты стреляешь за доску! Повнимательнее"
+    
 class BoardUsedException(BoardException):
     def __str__(self):
         return "Ты уже стрелял в эту клетку"
+    
 class BoardWrongShipException(BoardException):
     pass
+
 class Ship:
     def __init__(self, bow, l, o):
         self.bow = bow
@@ -37,6 +43,7 @@ class Ship:
         return ship_dots    
     def shooten(self, shot):
         return shot in self.dots
+    
 class Board:
     def __init__(self, hid = False, size = 6):
         self.size = size
@@ -100,6 +107,7 @@ class Board:
         return False    
     def begin(self):
         self.busy = []
+        
 class Player:
     def __init__(self, board, enemy):
         self.board = board
@@ -114,11 +122,13 @@ class Player:
                 return repeat
             except BoardException as e:
                 print(e)
+                
 class AI(Player):
     def ask(self):
         d = Dot(randint(0,5), randint(0, 5))
         print(f"Ход компуктера: {d.x+1} {d.y+1}")
         return d
+    
 class User(Player):
     def ask(self):
         while True:
@@ -132,6 +142,7 @@ class User(Player):
                 continue          
             x, y = int(x), int(y)         
             return Dot(x-1, y-1)
+        
 class Game:
     def __init__(self, size = 6):
         self.size = size
